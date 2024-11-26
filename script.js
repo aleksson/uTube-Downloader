@@ -67,9 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
             iframe.allowFullscreen = true;
 
             // Note: Downloading YouTube videos directly using native code is not possible due to YouTube's terms of service.
-            // However, for educational purposes, here's a conceptual example of how it might look:
 
-            // Attempt to download the video as MP4 using native code
             const downloadVideo = (videoId) => {
                 const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
                 const a = document.createElement('a');
@@ -78,12 +76,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.appendChild(a);
                 
                 /*a.click();
-                document.body.removeChild(a);*/
-                alert('Attempted to download the video. Note: This is a conceptual example.');
+                document.body.removeChild(a);
+                alert('Attempted to download the video. Note: This is a conceptual example.');*/
             };
-
-            // Call the download function
-            downloadVideo(videoId);
+            //downloadVideo(videoId);
         } else {
             alert('Failed to extract video ID. Please check the URL and try again.');
         }
