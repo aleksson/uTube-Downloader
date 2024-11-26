@@ -9,15 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add animation to CTA button
-    const ctaButton = document.querySelector('.cta-button');
-    ctaButton.addEventListener('click', function() {
-        this.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-            this.style.transform = 'scale(1)';
-        }, 200);
-    });
-
     // Add scroll animation for feature cards
     const featureCards = document.querySelectorAll('.feature-card');
     const observer = new IntersectionObserver((entries) => {
@@ -41,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlButton = document.querySelector('.url-button');
 
     urlButton.addEventListener('click', function() {
+        console.log('Button clicked');
         const url = urlInput.value.trim();
         
         // Basic YouTube URL validation
@@ -59,6 +51,42 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Valid YouTube URL:', url);
         // For example, you could extract the video ID and embed it
         // or redirect to the video page
+        // Extract the video ID from the URL
+        const videoIdMatch = url.match(/(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+        if (videoIdMatch && videoIdMatch[1]) {
+            const videoId = videoIdMatch[1];
+            console.log('Extracted Video ID:', videoId);
+
+            // Create an iframe element to embed the video
+            const iframe = document.createElement('iframe');
+            iframe.width = '560';
+            iframe.height = '315';
+            iframe.src = `https://www.youtube.com/embed/${videoId}`;
+            iframe.frameBorder = '0';
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+
+            // Note: Downloading YouTube videos directly using native code is not possible due to YouTube's terms of service.
+            // However, for educational purposes, here's a conceptual example of how it might look:
+
+            // Attempt to download the video as MP4 using native code
+            const downloadVideo = (videoId) => {
+                const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+                const a = document.createElement('a');
+                a.href = videoUrl;
+                a.download = `${videoId}.mp4`;
+                document.body.appendChild(a);
+                
+                /*a.click();
+                document.body.removeChild(a);*/
+                alert('Attempted to download the video. Note: This is a conceptual example.');
+            };
+
+            // Call the download function
+            downloadVideo(videoId);
+        } else {
+            alert('Failed to extract video ID. Please check the URL and try again.');
+        }
     });
 
     // Reset validation styling when input changes
